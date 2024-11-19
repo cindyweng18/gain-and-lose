@@ -1,7 +1,20 @@
-"use client";
-
-import { Button, Fieldset, Input, Stack } from "@chakra-ui/react";
-import { Field } from "@/components/ui/field";
+"use client"
+import { FormControl, FormLabel } from '@chakra-ui/form-control'
+import { InputGroup, InputRightElement } from '@chakra-ui/input'
+// import { Input } from "@chakra-ui/react"
+import {
+  Flex,
+  Box,
+  HStack,
+  Stack,
+  Button,
+  Heading,
+  Text,
+  Input,
+  Group,
+  InputAddon,
+} from '@chakra-ui/react'
+import { useState } from 'react'
 
 export default function Home() {
   const handleSubmit = async () => {
@@ -24,35 +37,73 @@ export default function Home() {
 
   }
   return (
-    <Fieldset.Root size="lg" maxW="md">
-      <Stack>
-        <Fieldset.Legend>Contact details</Fieldset.Legend>
-        <Fieldset.HelperText>
-          Please provide your contact details below.
-        </Fieldset.HelperText>
+    <Flex
+      minH={'100vh'}
+      align={'center'}
+      justify={'center'}>
+      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+        <Stack align={'center'}>
+          <Heading fontSize={'4xl'} textAlign={'center'}>
+            Gain & Lose
+          </Heading>
+          <Text fontSize={'lg'} color={'gray.600'}>
+            Fill out your information below to get an AI-generated response for your fitness goals ✌️
+          </Text>
+        </Stack>
+        <Box
+          rounded={'lg'}
+          boxShadow={'lg'}
+          p={8}>
+          <Stack spacing={4}>
+            <HStack>
+              <Box>
+                <FormControl id="firstName" isRequired>
+                  <FormLabel>First Name</FormLabel>
+                  <Input type="text" />
+                </FormControl>
+              </Box>
+              <Box>
+                <FormControl id="age">
+                  <FormLabel>Age</FormLabel>
+                  <Group attached>
+                    <Input type="number" />
+                    <InputAddon>years old</InputAddon>
+                  </Group>
+                </FormControl>
+              </Box>
+            </HStack>
+            <FormControl id="email" isRequired>
+              <FormLabel>Email address</FormLabel>
+              <Input type="email" />
+            </FormControl>
+            <FormControl id="password" isRequired>
+              <FormLabel>Password</FormLabel>
+              <InputGroup>
+                <Input type={'text'} />
+                <InputRightElement h={'full'}>
+                  <Button
+                    variant={'ghost'}
+                    onClick={() => setShowPassword((showPassword) => !showPassword)}>
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+            </FormControl>
+            <Stack spacing={10} pt={2}>
+              <Button
+                loadingText="Submitting"
+                size="lg"
+                bg={'blue.400'}
+                color={'white'}
+                _hover={{
+                  bg: 'blue.500',
+                }}>
+                Sign up
+              </Button>
+            </Stack>
+          </Stack>
+        </Box>
       </Stack>
-
-      <Fieldset.Content>
-        <Field label="Name">
-          <Input name="name" />
-        </Field>
-
-        <Field label="Weight">
-          <Input name="weight" type="number" />
-        </Field>
-
-        <Field label="Height (ft)">
-          <Input name="height" type="number" />
-        </Field>
-        <Field label="Height (in)">
-          <Input name="height" type="number" />
-        </Field>
-      </Fieldset.Content>
-
-      <Button onClick={handleSubmit} type="submit" alignSelf="flex-start">
-        Submit
-      </Button>
-    </Fieldset.Root>
+    </Flex>
   );
 }
 
