@@ -13,10 +13,25 @@ import {
   Input,
   Group,
   InputAddon,
+  createListCollection,
+  SelectRoot,
+  SelectLabel,
+  SelectTrigger,
+  SelectValueText,
+  SelectContent,
+  SelectItem,
 } from '@chakra-ui/react'
 import { useState } from 'react'
 
 export default function Home() {
+  const sex = createListCollection({
+    items:[
+      {label: "F", value: "female"},
+      {label: "M", value: "male"},
+      {label: "O", value: "unknown"}
+    ]
+  })
+
   const handleSubmit = async () => {
     try {
       const response = await fetch("/api/generate", {
@@ -63,29 +78,57 @@ export default function Home() {
                 </FormControl>
               </Box>
               <Box>
-                <FormControl id="age">
+                <FormControl id="age" isRequired>
                   <FormLabel>Age</FormLabel>
                   <Group attached>
-                    <Input type="number" />
+                    <Input type="number"/>
                     <InputAddon>years old</InputAddon>
                   </Group>
                 </FormControl>
               </Box>
+              <Box>
+                <FormControl>
+                <SelectRoot collection={sex} size="sm" width="100px">
+                  <SelectLabel>Sex</SelectLabel>
+                  <SelectTrigger>
+                    <SelectValueText placeholder="Sex" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {sex.items.map((item) => (
+                      <SelectItem item={item} key={item.value}>
+                          {item.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </SelectRoot>
+                </FormControl>
+              </Box>
             </HStack>
-            <FormControl id="email" isRequired>
-              <FormLabel>Email address</FormLabel>
-              <Input type="email" />
-            </FormControl>
-            <FormControl id="password" isRequired>
-              <FormLabel>Password</FormLabel>
+            {/* Have the ability for user to change metrics */}
+            <HStack>
+              <Box>
+                <FormControl id="height-ft" isRequired>
+                  <FormLabel>Height (ft) </FormLabel>
+                  <Input type="number" />
+                </FormControl>
+              </Box>
+              <Box>
+                <FormControl id="height-in" isRequired>
+                  <FormLabel>Height (in)</FormLabel>
+                    <Input type="number"/>
+                  </FormControl>
+              </Box>
+              <Box>
+                <FormControl id="weight" isRequired>
+                  <FormLabel>Weight (lbs)</FormLabel>
+                    <Input type="number"/>
+                  </FormControl>
+              </Box>
+            </HStack>
+            <FormControl id="goal" isRequired>
+              <FormLabel>Goal</FormLabel>
               <InputGroup>
                 <Input type={'text'} />
-                <InputRightElement h={'full'}>
-                  <Button
-                    variant={'ghost'}
-                    onClick={() => setShowPassword((showPassword) => !showPassword)}>
-                  </Button>
-                </InputRightElement>
               </InputGroup>
             </FormControl>
             <Stack spacing={10} pt={2}>
@@ -97,7 +140,7 @@ export default function Home() {
                 _hover={{
                   bg: 'blue.500',
                 }}>
-                Sign up
+                Generate an AI Response!
               </Button>
             </Stack>
           </Stack>
