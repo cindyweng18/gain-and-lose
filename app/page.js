@@ -24,6 +24,14 @@ import {
 import { useState } from 'react'
 
 export default function Home() {
+  const [name, setName] = useState('');
+  const [age, setAge] = useState(0);
+  const [userSex, setUserSex] = useState('');
+  const [feet, setFeet] = useState(0);
+  const [inch, setInch] = useState(0);
+  const [weight, setWeight] = useState(0);
+  const [goal, setGoal] = useState('');
+
   const sex = createListCollection({
     items:[
       {label: "F", value: "female"},
@@ -33,10 +41,11 @@ export default function Home() {
   })
 
   const handleSubmit = async () => {
+    const userInput = `Hi, my name is ${name} and I am ${age} years old, ${feet} feet ${inch} inches height, ${weight} lbs, and ${goal}.`
     try {
       const response = await fetch("/api/generate", {
         method: "POST",
-        body: "I am a 25 year old female, 5 feet 3 inches height, 120 lbs, and I want to be more fit and reach 100 lbs.",
+        body: userInput,
       });
 
       if (!response.ok) {
@@ -74,21 +83,21 @@ export default function Home() {
               <Box>
                 <FormControl id="firstName" isRequired>
                   <FormLabel>First Name</FormLabel>
-                  <Input type="text" />
+                  <Input placeholder="First Name" type="text" onChange={(e) => setName(e.target.value)}/>
                 </FormControl>
               </Box>
               <Box>
                 <FormControl id="age" isRequired>
                   <FormLabel>Age</FormLabel>
                   <Group attached>
-                    <Input type="number"/>
+                    <Input type="number" onChange={(e) => setAge(e.target.value)}/>
                     <InputAddon>years old</InputAddon>
                   </Group>
                 </FormControl>
               </Box>
               <Box>
                 <FormControl>
-                <SelectRoot collection={sex} size="sm" width="100px">
+                <SelectRoot collection={sex} size="sm" width="100px" onChange={(e) => setUserSex(e.target.value)}>
                   <SelectLabel>Sex</SelectLabel>
                   <SelectTrigger>
                     <SelectValueText placeholder="Sex" />
@@ -109,30 +118,31 @@ export default function Home() {
               <Box>
                 <FormControl id="height-ft" isRequired>
                   <FormLabel>Height (ft) </FormLabel>
-                  <Input type="number" />
+                  <Input type="number" onChange={(e) => setFeet(e.target.value)}/>
                 </FormControl>
               </Box>
               <Box>
                 <FormControl id="height-in" isRequired>
                   <FormLabel>Height (in)</FormLabel>
-                    <Input type="number"/>
+                    <Input type="number" onChange={(e) => setInch(e.target.value)}/>
                   </FormControl>
               </Box>
               <Box>
                 <FormControl id="weight" isRequired>
                   <FormLabel>Weight (lbs)</FormLabel>
-                    <Input type="number"/>
+                    <Input type="number" onChange={(e) => setWeight(e.target.value)}/>
                   </FormControl>
               </Box>
             </HStack>
             <FormControl id="goal" isRequired>
-              <FormLabel>Goal</FormLabel>
+              <FormLabel>Fitness Goal</FormLabel>
               <InputGroup>
-                <Input type={'text'} />
+                <Input placeholder="I want to..." type={'text'} onChange={(e) => setGoal(e.target.value)} />
               </InputGroup>
             </FormControl>
             <Stack spacing={10} pt={2}>
               <Button
+                onClick={handleSubmit}
                 loadingText="Submitting"
                 size="lg"
                 bg={'blue.400'}
