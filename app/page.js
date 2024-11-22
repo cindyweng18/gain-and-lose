@@ -1,7 +1,17 @@
 "use client"
 import { FormControl, FormLabel } from '@chakra-ui/form-control'
-import { InputGroup, InputRightElement } from '@chakra-ui/input'
-// import { Input } from "@chakra-ui/react"
+import { InputGroup } from '@chakra-ui/input'
+import {
+  DialogActionTrigger,
+  DialogBody,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogRoot,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 import {
   Flex,
   Box,
@@ -31,6 +41,7 @@ export default function Home() {
   const [inch, setInch] = useState(0);
   const [weight, setWeight] = useState(0);
   const [goal, setGoal] = useState('');
+  const [responseAI, setResponseAI] = useState('')
 
   const sex = createListCollection({
     items:[
@@ -41,7 +52,7 @@ export default function Home() {
   })
 
   const handleSubmit = async () => {
-    const userInput = `Hi, my name is ${name} and I am ${age} years old, ${feet} feet ${inch} inches height, ${weight} lbs, and ${goal}.`
+    const userInput = `Hi, my name is ${name} and I am ${age} years old ${userSex}, ${feet} feet ${inch} inches height, ${weight} lbs, and ${goal}.`
     try {
       const response = await fetch("/api/generate", {
         method: "POST",
@@ -53,7 +64,7 @@ export default function Home() {
       }
 
       const data = await response.json();
-      console.log(data)
+      setResponseAI(data.recommendations)
     } catch (error) {
       console.error("Error generating respose:", error);
       alert("An error occurred while generating a response. Please try again.");
@@ -61,6 +72,7 @@ export default function Home() {
 
   }
   return (
+    <>
     <Flex
       minH={'100vh'}
       align={'center'}
@@ -141,22 +153,39 @@ export default function Home() {
               </InputGroup>
             </FormControl>
             <Stack spacing={10} pt={2}>
-              <Button
-                onClick={handleSubmit}
-                loadingText="Submitting"
-                size="lg"
-                bg={'blue.400'}
-                color={'white'}
-                _hover={{
-                  bg: 'blue.500',
-                }}>
-                Generate an AI Response!
-              </Button>
+            <DialogRoot
+              key={"center"}
+              placement={"center"}
+              motionPreset="slide-in-bottom"
+            >
+              <DialogTrigger asChild>
+                <Button variant="outline"> Generate AI Response! </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Dialog Title</DialogTitle>
+                </DialogHeader>
+                <DialogBody>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                    do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  </p>
+                </DialogBody>
+                <DialogFooter>
+                  <DialogActionTrigger asChild>
+                    <Button variant="outline">Cancel</Button>
+                  </DialogActionTrigger>
+                  <Button>Save</Button>
+                </DialogFooter>
+                <DialogCloseTrigger />
+              </DialogContent>
+            </DialogRoot>
             </Stack>
           </Stack>
         </Box>
       </Stack>
     </Flex>
+  </>
   );
 }
 
