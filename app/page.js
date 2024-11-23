@@ -41,7 +41,7 @@ export default function Home() {
   const [inch, setInch] = useState(0);
   const [weight, setWeight] = useState(0);
   const [goal, setGoal] = useState('');
-  const [responseAI, setResponseAI] = useState('')
+  const [responseAI, setResponseAI] = useState([])
 
   const sex = createListCollection({
     items:[
@@ -64,7 +64,8 @@ export default function Home() {
       }
 
       const data = await response.json();
-      setResponseAI(data.recommendations)
+      console.log(data.recommendations);
+      // setResponseAI(data);
     } catch (error) {
       console.error("Error generating respose:", error);
       alert("An error occurred while generating a response. Please try again.");
@@ -159,16 +160,15 @@ export default function Home() {
               motionPreset="slide-in-bottom"
             >
               <DialogTrigger asChild>
-                <Button variant="outline"> Generate AI Response! </Button>
+                <Button variant="outline" onClick={handleSubmit}> Generate AI Response! </Button>
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
-                  <DialogTitle>Dialog Title</DialogTitle>
+                  <DialogTitle>Fitness Recommendations</DialogTitle>
                 </DialogHeader>
                 <DialogBody>
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    {responseAI}
                   </p>
                 </DialogBody>
                 <DialogFooter>

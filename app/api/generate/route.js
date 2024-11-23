@@ -7,6 +7,7 @@ Analyze the input details and suggest practical and healthy options, including:
 3. Suggested meal or snack ideas tailored to their goals and preferences.
 4. Tips for staying consistent and motivated.
 Ensure that your suggestions are safe, balanced, and based on widely accepted health and fitness guidelines. Avoid medical or clinical advice, and include options that are easy to understand and implement for people with varying fitness levels.
+Your response should be in a paragraph format with each section clearly titled and labeled.
 `
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const genAI = new GoogleGenerativeAI(process.env.API_KEY);
