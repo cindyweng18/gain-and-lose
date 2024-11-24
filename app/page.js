@@ -64,8 +64,8 @@ export default function Home() {
       }
 
       const data = await response.json();
-      console.log(data.recommendations);
-      // setResponseAI(data);
+      // console.log(data.recommendations);
+      setResponseAI(data.recommendations);
     } catch (error) {
       console.error("Error generating respose:", error);
       alert("An error occurred while generating a response. Please try again.");
@@ -168,7 +168,11 @@ export default function Home() {
                 </DialogHeader>
                 <DialogBody>
                   <p>
-                    {responseAI}
+                    Here it is
+                    {responseAI.dailyCalorieIntake}
+                    {responseAI.exercise}
+                    {responseAI.mealIdeas}
+                    {responseAI.tipsForConsistency}
                   </p>
                 </DialogBody>
                 <DialogFooter>

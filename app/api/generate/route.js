@@ -6,8 +6,7 @@ Analyze the input details and suggest practical and healthy options, including:
 2. Types of exercises or activities to incorporate (e.g., strength training, cardio, yoga).
 3. Suggested meal or snack ideas tailored to their goals and preferences.
 4. Tips for staying consistent and motivated.
-Ensure that your suggestions are safe, balanced, and based on widely accepted health and fitness guidelines. Avoid medical or clinical advice, and include options that are easy to understand and implement for people with varying fitness levels.
-Your response should be in a paragraph format with each section clearly titled and labeled.
+Ensure that your suggestions are safe, balanced, and based on widely accepted health and fitness guidelines. Avoid medical or clinical advice, and include options that are easy to understand and implement for people with varying fitness levels. Your response must be a cohesive narrative in paragraph format. Avoid structured data, lists, or bullet points. Write naturally as if you are directly advising the person.
 `
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const genAI = new GoogleGenerativeAI(process.env.API_KEY);
@@ -32,7 +31,6 @@ export async function POST(req) {
           }
         ],
       })
-
       const geminiResponse = JSON.parse(result.response.text());
       console.log(geminiResponse);
       return NextResponse.json(geminiResponse)
