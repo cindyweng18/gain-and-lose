@@ -164,16 +164,17 @@ export default function Home() {
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
-                  <DialogTitle>Fitness Recommendations</DialogTitle>
+                  <DialogTitle> <Text textStyle="5xl">Fitness Recommendations</Text></DialogTitle>
                 </DialogHeader>
                 <DialogBody>
-                  <p>
-                    Here it is
-                    {responseAI.dailyCalorieIntake}
-                    {responseAI.exercise}
-                    {responseAI.mealIdeas}
-                    {responseAI.tipsForConsistency}
-                  </p>
+                  <Text textStyle="2xl" fontWeight="bold"> Daily Calorie Intake ℹ </Text>
+                  <Text textStyle="lg"> {responseAI.dailyCalorieIntake} </Text>
+                  <Text textStyle="2xl" fontWeight="bold"> Exercises 🏃</Text>
+                  <Text textStyle="lg"> {responseAI.exercises} </Text>
+                  <Text textStyle="2xl" fontWeight="bold"> Meal Ideas 🍴 </Text>
+                  <Text textStyle="lg"> {responseAI.mealIdeas} </Text>
+                  <Text textStyle="2xl" fontWeight="bold"> Tips for Consistency 📑</Text>
+                  <Text textStyle="lg"> {responseAI.tipsForConsistency} </Text>
                 </DialogBody>
                 <DialogFooter>
                   <DialogActionTrigger asChild>
