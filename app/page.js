@@ -13,6 +13,14 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import {
+  SelectContent,
+  SelectItem,
+  SelectLabel,
+  SelectRoot,
+  SelectTrigger,
+  SelectValueText,
+} from "@/components/ui/select"
+import {
   Flex,
   Box,
   HStack,
@@ -24,12 +32,6 @@ import {
   Group,
   InputAddon,
   createListCollection,
-  SelectRoot,
-  SelectLabel,
-  SelectTrigger,
-  SelectValueText,
-  SelectContent,
-  SelectItem,
 } from '@chakra-ui/react'
 import { useState } from 'react'
 
@@ -156,6 +158,7 @@ export default function Home() {
             <Stack spacing={10} pt={2}>
             <DialogRoot
               key={"center"}
+              size="xl"
               placement={"center"}
               motionPreset="slide-in-bottom"
             >
@@ -164,13 +167,13 @@ export default function Home() {
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
-                  <DialogTitle> <Text textStyle="5xl">Fitness Recommendations</Text></DialogTitle>
+                  <DialogTitle> <Text textStyle="4xl">Fitness Recommendations</Text></DialogTitle>
                 </DialogHeader>
                 <DialogBody>
                   <Text textStyle="2xl" fontWeight="bold"> Daily Calorie Intake ℹ </Text>
                   <Text textStyle="lg"> {responseAI.dailyCalorieIntake} </Text>
                   <Text textStyle="2xl" fontWeight="bold"> Exercises 🏃</Text>
-                  <Text textStyle="lg"> {responseAI.exercises} </Text>
+                  <Text textStyle="lg"> {responseAI.exercise} </Text>
                   <Text textStyle="2xl" fontWeight="bold"> Meal Ideas 🍴 </Text>
                   <Text textStyle="lg"> {responseAI.mealIdeas} </Text>
                   <Text textStyle="2xl" fontWeight="bold"> Tips for Consistency 📑</Text>
