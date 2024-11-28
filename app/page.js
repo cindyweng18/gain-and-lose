@@ -45,6 +45,16 @@ export default function Home() {
   const [goal, setGoal] = useState('');
   const [responseAI, setResponseAI] = useState([])
 
+  const DomainSelect = () => (
+    <NativeSelectRoot size="xs" variant="plain" width="auto" me="-1">
+      <NativeSelectField defaultValue=".com" fontSize="sm">
+        <option value=".com">.com</option>
+        <option value=".org">.org</option>
+        <option value=".net">.net</option>
+      </NativeSelectField>
+    </NativeSelectRoot>
+  )
+
   const sex = createListCollection({
     items:[
       {label: "F", value: "female"},
@@ -131,16 +141,13 @@ export default function Home() {
             {/* Have the ability for user to change metrics */}
             <HStack>
               <Box>
-                <FormControl id="height-ft" isRequired>
-                  <FormLabel>Height (ft) </FormLabel>
-                  <Input type="number" onChange={(e) => setFeet(e.target.value)}/>
-                </FormControl>
-              </Box>
-              <Box>
-                <FormControl id="height-in" isRequired>
-                  <FormLabel>Height (in)</FormLabel>
-                    <Input type="number" onChange={(e) => setInch(e.target.value)}/>
-                  </FormControl>
+                <InputGroup
+                  flex="1"
+                  startElement="https://"
+                  endElement={<DomainSelect />}
+                >
+                  <Input ps="4.75em" pe="0" placeholder="yoursite.com" />
+                </InputGroup>
               </Box>
               <Box>
                 <FormControl id="weight" isRequired>
