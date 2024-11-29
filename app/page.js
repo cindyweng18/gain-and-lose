@@ -45,15 +45,19 @@ export default function Home() {
   const [goal, setGoal] = useState('');
   const [responseAI, setResponseAI] = useState([])
 
-  const DomainSelect = () => (
-    <NativeSelectRoot size="xs" variant="plain" width="auto" me="-1">
-      <NativeSelectField defaultValue=".com" fontSize="sm">
-        <option value=".com">.com</option>
-        <option value=".org">.org</option>
-        <option value=".net">.net</option>
-      </NativeSelectField>
-    </NativeSelectRoot>
-  )
+  const height = createListCollection({
+    items:[
+      {label: "ft, in", value: "ft"},
+      {label: "cm", value: "cm"},
+    ]
+  })
+
+  const weightSelect = createListCollection({
+    items:[
+      {label: "lbs", value: "lbs"},
+      {label: "kg", value: "kg"},
+    ]
+  })
 
   const sex = createListCollection({
     items:[
@@ -138,16 +142,32 @@ export default function Home() {
                 </FormControl>
               </Box>
             </HStack>
-            {/* Have the ability for user to change metrics */}
             <HStack>
               <Box>
-                <InputGroup
-                  flex="1"
-                  startElement="https://"
-                  endElement={<DomainSelect />}
-                >
-                  <Input ps="4.75em" pe="0" placeholder="yoursite.com" />
-                </InputGroup>
+              <FormControl>
+              <InputGroup
+                flex="1"
+                startElement="https://"
+                endElement={
+                  <SelectRoot collection={height} size="sm" width="100px" onChange={(e) => setUserSex(e.target.value)}>
+                  <SelectLabel>Height</SelectLabel>
+                  <SelectTrigger>
+                    <SelectValueText placeholder="height" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {height.items.map((item) => (
+                      <SelectItem item={item} key={item.value}>
+                          {item.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </SelectRoot>
+                }
+              >
+                <Input ps="4.75em" pe="0" placeholder="yoursite.com" />
+              </InputGroup>
+                
+                </FormControl>
               </Box>
               <Box>
                 <FormControl id="weight" isRequired>
