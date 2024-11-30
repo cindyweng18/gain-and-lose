@@ -34,6 +34,7 @@ import {
   createListCollection,
 } from '@chakra-ui/react'
 import { useState } from 'react'
+import { Switch } from '@/components/ui/switch'
 
 export default function Home() {
   const [name, setName] = useState('');
@@ -144,29 +145,12 @@ export default function Home() {
             </HStack>
             <HStack>
               <Box>
+                <HStack> 
+              <FormLabel>Height</FormLabel>
+                ft <Switch>cm</Switch>
+                </HStack>
               <FormControl>
-              <InputGroup
-                flex="1"
-                startElement="https://"
-                endElement={
-                  <SelectRoot collection={height} size="sm" width="100px" onChange={(e) => setUserSex(e.target.value)}>
-                  <SelectLabel>Height</SelectLabel>
-                  <SelectTrigger>
-                    <SelectValueText placeholder="height" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {height.items.map((item) => (
-                      <SelectItem item={item} key={item.value}>
-                          {item.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </SelectRoot>
-                }
-              >
-                <Input ps="4.75em" pe="0" placeholder="yoursite.com" />
-              </InputGroup>
-                
+                    <Input type="number" />
                 </FormControl>
               </Box>
               <Box>
