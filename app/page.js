@@ -45,13 +45,7 @@ export default function Home() {
   const [weight, setWeight] = useState(0);
   const [goal, setGoal] = useState('');
   const [responseAI, setResponseAI] = useState([])
-
-  const height = createListCollection({
-    items:[
-      {label: "ft, in", value: "ft"},
-      {label: "cm", value: "cm"},
-    ]
-  })
+  const [checkedHeight, setCheckedHeight] = useState(false)
 
   const weightSelect = createListCollection({
     items:[
@@ -147,11 +141,35 @@ export default function Home() {
               <Box>
                 <HStack> 
               <FormLabel>Height</FormLabel>
-                ft <Switch>cm</Switch>
+                   ft <Switch onChange={(e) => {setCheckedHeight(e.target.checked)}}>cm</Switch>
                 </HStack>
-              <FormControl>
-                    <Input type="number" />
-                </FormControl>
+                    {checkedHeight ? 
+                    <FormControl>
+                      <Group attached>
+                        <Input type="number" /> 
+                        <InputAddon>cm</InputAddon>
+                      </Group>
+                    </FormControl> 
+                    : 
+                    <HStack> 
+                    <Box>
+                    <FormControl id="height-ft" isRequired>
+                      <Group attached>
+                        <Input type="number" onChange={(e) => setFeet(e.target.value)}/>
+                        <InputAddon>ft</InputAddon>
+                      </Group>
+                    </FormControl>
+                  </Box>
+                  <Box>
+                    <FormControl id="height-in" isRequired>
+                      <Group attached>
+                        <Input type="number" onChange={(e) => setInch(e.target.value)}/>
+                        <InputAddon>in</InputAddon>
+                      </Group>
+                      </FormControl>
+                  </Box>
+                  </HStack>
+                  }
               </Box>
               <Box>
                 <FormControl id="weight" isRequired>
