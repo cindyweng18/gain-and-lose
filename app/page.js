@@ -44,8 +44,9 @@ export default function Home() {
   const [inch, setInch] = useState(0);
   const [weight, setWeight] = useState(0);
   const [goal, setGoal] = useState('');
-  const [responseAI, setResponseAI] = useState([])
-  const [checkedHeight, setCheckedHeight] = useState(false)
+  const [responseAI, setResponseAI] = useState([]);
+  const [checkedHeight, setCheckedHeight] = useState(false);
+  const [cm, setCm] = useState(0);
 
   const weightSelect = createListCollection({
     items:[
@@ -63,7 +64,14 @@ export default function Home() {
   })
 
   const handleSubmit = async () => {
-    const userInput = `Hi, my name is ${name} and I am ${age} years old ${userSex}, ${feet} feet ${inch} inches height, ${weight} lbs, and ${goal}.`
+    // Change it to be height and weight prompt?
+    let heightPrompt;
+    if (checkedHeight) {
+      heightPrompt = `${cm} cm`;
+    } else {
+      heightPrompt = `${feet} feet ${inch} inches`;
+    }
+    const userInput = `Hi, my name is ${name} and I am ${age} years old ${userSex}, ${heightPrompt} height, ${weight} lbs, and ${goal}.`
     try {
       const response = await fetch("/api/generate", {
         method: "POST",
@@ -144,9 +152,9 @@ export default function Home() {
                    ft <Switch onChange={(e) => {setCheckedHeight(e.target.checked)}}>cm</Switch>
                 </HStack>
                     {checkedHeight ? 
-                    <FormControl>
+                    <FormControl id="height-cm" isRequired>
                       <Group attached>
-                        <Input type="number" /> 
+                        <Input type="number" onChange={(e) => setCm(e.target.value)}/> 
                         <InputAddon>cm</InputAddon>
                       </Group>
                     </FormControl> 
