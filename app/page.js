@@ -46,7 +46,10 @@ export default function Home() {
   const [goal, setGoal] = useState('');
   const [responseAI, setResponseAI] = useState([]);
   const [checkedHeight, setCheckedHeight] = useState(false);
+  const [checkedWeight, setCheckedWeight] = useState(false);
   const [cm, setCm] = useState(0);
+  const [weightKg, setWeightKg] = useState(0);
+  const [weightLbs, setWeightLbs] = useState(0);
 
   const weightSelect = createListCollection({
     items:[
@@ -180,10 +183,25 @@ export default function Home() {
                   }
               </Box>
               <Box>
-                <FormControl id="weight" isRequired>
-                  <FormLabel>Weight (lbs)</FormLabel>
-                    <Input type="number" onChange={(e) => setWeight(e.target.value)}/>
-                  </FormControl>
+              <HStack> 
+              <FormLabel> Weight</FormLabel>
+                   lbs <Switch onChange={(e) => {setCheckedWeight(e.target.checked)}}>kg</Switch>
+                </HStack>
+                    {checkedWeight ? 
+                    <FormControl id="weight-kg" isRequired>
+                      <Group attached>
+                        <Input type="number" onChange={(e) => setWeightKg(e.target.value)}/> 
+                        <InputAddon>kg</InputAddon>
+                      </Group>
+                    </FormControl> 
+                    : 
+                    <FormControl id="weight-lb" isRequired>
+                      <Group attached>
+                        <Input type="number" onChange={(e) => setWeightLbs(e.target.value)}/> 
+                        <InputAddon>lbs</InputAddon>
+                      </Group>
+                    </FormControl> 
+                  }
               </Box>
             </HStack>
             <FormControl id="goal" isRequired>
