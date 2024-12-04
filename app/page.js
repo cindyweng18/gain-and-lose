@@ -69,12 +69,22 @@ export default function Home() {
   const handleSubmit = async () => {
     // Change it to be height and weight prompt?
     let heightPrompt;
+    let weightPrompt;
+
     if (checkedHeight) {
       heightPrompt = `${cm} cm`;
     } else {
       heightPrompt = `${feet} feet ${inch} inches`;
     }
-    const userInput = `Hi, my name is ${name} and I am ${age} years old ${userSex}, ${heightPrompt} height, ${weight} lbs, and ${goal}.`
+
+    if (checkedWeight) {
+      weightPrompt = `${weightKg} kg`;
+    } else {
+      weightPrompt = `${weightLbs} lbs`;
+    }
+    
+    const userInput = `Hi, my name is ${name} and I am ${age} years old ${userSex}, ${heightPrompt} height, ${weightPrompt}, and ${goal}.`;
+
     try {
       const response = await fetch("/api/generate", {
         method: "POST",
