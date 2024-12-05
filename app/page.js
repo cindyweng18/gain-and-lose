@@ -50,6 +50,7 @@ export default function Home() {
   const [cm, setCm] = useState(0);
   const [weightKg, setWeightKg] = useState(0);
   const [weightLbs, setWeightLbs] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   const weightSelect = createListCollection({
     items:[
@@ -67,6 +68,7 @@ export default function Home() {
   })
 
   const handleSubmit = async () => {
+    setIsLoading(true);
     // Change it to be height and weight prompt?
     let heightPrompt;
     let weightPrompt;
@@ -98,6 +100,7 @@ export default function Home() {
       const data = await response.json();
       // console.log(data.recommendations);
       setResponseAI(data.recommendations);
+      setIsLoading(false);
     } catch (error) {
       console.error("Error generating respose:", error);
       alert("An error occurred while generating a response. Please try again.");
@@ -235,14 +238,20 @@ export default function Home() {
                   <DialogTitle> <Text textStyle="4xl">Fitness Recommendations</Text></DialogTitle>
                 </DialogHeader>
                 <DialogBody>
+                {isLoading && <div>Loading...</div>} 
+                {responseAI && 
+                <>
                   <Text textStyle="2xl" fontWeight="bold"> Daily Calorie Intake ℹ </Text>
                   <Text textStyle="lg"> {responseAI.dailyCalorieIntake} </Text>
                   <Text textStyle="2xl" fontWeight="bold"> Exercises 🏃</Text>
                   <Text textStyle="lg"> {responseAI.exercise} </Text>
+                  <Text textStyle="lg"> {responseAI.exercises} </Text>
                   <Text textStyle="2xl" fontWeight="bold"> Meal Ideas 🍴 </Text>
                   <Text textStyle="lg"> {responseAI.mealIdeas} </Text>
                   <Text textStyle="2xl" fontWeight="bold"> Tips for Consistency 📑</Text>
                   <Text textStyle="lg"> {responseAI.tipsForConsistency} </Text>
+                  </>
+}
                 </DialogBody>
                 <DialogFooter>
                   <DialogActionTrigger asChild>
