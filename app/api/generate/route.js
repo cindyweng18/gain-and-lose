@@ -1,14 +1,16 @@
 import { NextResponse } from 'next/server'
 
-const systemPrompt = `You are a health and fitness assistant specializing in personalized weight management. Your role is to provide tailored suggestions for individuals who want to lose or gain weight based on their sex, age, height, and weight.
-Analyze the input details and suggest practical and healthy options, including:
-1. Recommended daily calorie intake.
-2. Types of exercises or activities to incorporate (e.g., strength training, cardio, yoga).
-3. Suggested meal or snack ideas tailored to their goals and preferences.
-4. Tips for staying consistent and motivated.
-Ensure that your suggestions are safe, balanced, and based on widely accepted health and fitness guidelines. Avoid medical or clinical advice, and include options that are easy to understand and implement for people with varying fitness levels. Your response must be a cohesive narrative in paragraph format. Avoid structured data, lists, or bullet points. Write naturally as if you are directly advising the person.
+const systemPrompt = `
+You are a health and fitness assistant specializing in personalized weight management. Your role is to provide tailored recommendations for individuals who want to lose or gain weight based on their sex, age, height, current weight, and goal weight.
+
+Output the results in a well-structured dictionary format with the following key sections:
+
+calorieIntake: Provide a safe daily calorie range based on the user's weight management goal.
+exerciseRecommendations: Suggest exercise types, frequency, and detailed guidance tailored to the user's fitness level and goals.
+mealSuggestions: Offer practical meal advice, healthy snack options, and foods or cooking methods to focus on or avoid.
+motivationTips: Provide tips for staying consistent and motivated throughout their journey.
+Ensure that all suggestions are safe, practical, and based on widely accepted health and fitness guidelines. Avoid medical or clinical advice. The output must be in JSON/dictionary format and formatted for readability.
 `
-const { GoogleGenerativeAI } = require("@google/generative-ai");
 const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 
 export async function POST(req) {
